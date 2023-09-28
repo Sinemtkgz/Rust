@@ -37,3 +37,46 @@ fn main() {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Building a Custom Filtering Function in Rust
+
+fn custom_filter<T, F>(iter: impl Iterator<Item = T>, predicate: F) -> Vec<T>
+where
+    F: Fn(&T) -> bool,
+{
+    let mut result = Vec::new();
+
+    for item in iter {
+        if predicate(&item) {
+            result.push(item);
+        }
+    }
+
+    result
+}
+
+fn main() {
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    // Define a closure for the filtering condition (e.g., keep even numbers).
+    let is_even = |x: &i32| *x % 2 == 0;
+
+    // Use the custom filter function.
+    let even_numbers = custom_filter(numbers.iter(), is_even);
+
+    // Print the filtered result.
+    println!("Even numbers: {:?}", even_numbers);
+}
